@@ -1,0 +1,41 @@
+body {
+  width: 800px;
+  box-sizing: border-box;
+  margin: 25px auto;
+  border: 20px solid #bdc3c7;
+  font-family: "source sans pro";
+  padding: 20px;
+}
+
+h2 {
+  font-weight: 700;
+  font-size: 32px;
+  text-transform: capitalize;
+}
+
+h4 {
+  font-weight: 600;
+  font-size: 16px;
+  color: #3498db;
+  letter-spacing: 3px;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+p {
+  font-weight: 400;
+  font-size: 16px;
+}
+
+hr {
+    border: 0;
+    height: 0;
+    color: #2c3c50;
+    border-top: 2px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 4px solid rgba(255, 255, 255, 0.3);
+}
+
+h2 + p {
+  border-left: 6px solid #bdc3c7;
+  padding-left: 6px;
+}
