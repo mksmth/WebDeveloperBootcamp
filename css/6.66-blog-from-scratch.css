@@ -10,6 +10,7 @@ body {
 h2 {
   font-weight: 700;
   font-size: 32px;
+  color: #2c3c50;
   text-transform: capitalize;
 }
 
@@ -38,4 +39,8 @@ hr {
 h2 + p {
   border-left: 6px solid #bdc3c7;
   padding-left: 6px;
+}
+
+article {
+  margin-bottom: 20px;
 }
