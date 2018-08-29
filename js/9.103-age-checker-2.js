@@ -1,10 +1,10 @@
-var age = prompt("How old are you?");
+var age = Number(prompt("What is your age?"));
 
 
 if(age < 0) {
   document.write("You cannot possibly be serious!!");
 }
-else if(age == 21) {
+else if(age === 21) {
   document.write("Happy 21st Birthday :)!!");
 }
 else if (age % Math.sqrt(age) === 0) {
