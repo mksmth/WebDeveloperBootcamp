@@ -1,28 +1,28 @@
-console.log("print all numbers from -10 to 19");
+console.log("PRINT ALL NUMBERS FROM -10 TO 19");
 
-for(num = -10; num <= 19; num++) {
- console.log(num);
+for(i = -10; i <= 19; i++) {
+ console.log(i);
 }
 
-console.log("print even numbers between 10 and 40");
+console.log("PRINT EVEN NUMBERS BETWEEN 10 AND 40");
 
 
-for(num = 10; num <= 40; num+=2) {
-  console.log(num);
+for(i = 10; i <= 40; i+=2) {
+  console.log(i);
 }
 
-console.log("print odd numbers 300 to 333");
+console.log("PRINT ODD NUMBERS 300 TO 333");
 
-for(num = 300; num <= 333; num++) {
-  if(num % 2 === 1) {
-  console.log(num);
+for(i = 300; i <= 333; i++) {
+  if(i % 2 === 1) {
+  console.log(i);
   }
 }
 
-console.log("print all numbers divisible by 5 and 3 between 5 and 50");
+console.log("PRINT ALL NUMBERS DIVISIBLE BY 5 AND 3 BETWEEN 5 AND 50");
 
-for(num = 5; num <=50; num++) {
-  if(num % 5 === 0 && num % 3 === 0) {
-    console.log(num);
+for(i = 5; i <=50; i++) {
+  if(i % 5 === 0 && i % 3 === 0) {
+    console.log(i);
   }
 }
