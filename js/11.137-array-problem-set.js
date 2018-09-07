@@ -26,13 +26,14 @@ console.log("**********");
 console.log("Execute isUniform()");
 
 
-var stuff = ["a","a","a","a"];
+var stuff = ["a","b","a","a"];
 var firstItem = stuff[0];
 
 function isUniform() {
   for(i = 1; i < stuff.length; i++) {
-    if(stuff[i] !== firstItem)
+    if(stuff[i] !== firstItem) {
       return false;
+    }
   }
   return true;
 }
@@ -51,6 +52,19 @@ function sumArray() {
   }
   return total;
 }
+
+console.log("**********");
+
+console.log("Execute sumArray2()");
+
+
+function sumArray2() {
+  numbers.forEach(function(item) {
+    total += item;
+  });
+  return total;
+}
+
 
 console.log("**********");
 
