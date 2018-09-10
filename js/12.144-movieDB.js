@@ -8,7 +8,13 @@ var movies = [
     title: "A Canterbury Tale",
     hasWatched: true,
     rating: 5
+  },
+  {
+    title: "Interstellar",
+    hasWatched: true,
+    rating: 4
   }
+
 ]
 movies.forEach(function(movie) {
   if(movie.hasWatched) {
@@ -24,12 +30,13 @@ movies.forEach(function(movie) {
 movies.forEach(function(movie) {
   var result = "You have ";
     if(movie.hasWatched) {
-      result += "watched \"";
+     result += "watched ";
     }
     else {
-      result += "not seen \"";
+      result += "not seen ";
     }  
-      result += movie.title + "\" - " + movie.rating + " stars";
+      result += "\"" + movie.title + "\" - ";
+      result += movie.rating + " stars";
       console.log(result);
 });
 
@@ -38,12 +45,13 @@ movies.forEach(function(movie) {
 function buildString(movie) {
   var result = "You have ";
     if(movie.hasWatched) {
-      result += "watched \"";
+      result += "watched ";
     }
     else {
-      result += "not seen \"";
+      result += "not seen ";
     }  
-      result += movie.title + "\" - " + movie.rating + " stars";
+      result += "\"" + movie.title + "\" - ";
+      result += movie.rating + " stars";
   return result;    
 }
 
