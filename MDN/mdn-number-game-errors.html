@@ -1,20 +1,3 @@
-Skip to content
- 
-Search or jump to…
-
-Pull requests
-Issues
-Marketplace
-Explore
- @mksmth Sign out
-134
-1,149 3,665 mdn/learning-area
- Code  Issues 2  Pull requests 1  Projects 0  Insights
-learning-area/javascript/introduction-to-js-1/troubleshooting/number-game-errors.html
-bd1ad8c  on 26 Jul 2016
-@chrisdavidmills chrisdavidmills updating loops to use var for best practice
-     
-117 lines (95 sloc)  2.97 KB
 <!DOCTYPE html>
 <html>
   <head>
@@ -58,10 +41,10 @@ bd1ad8c  on 26 Jul 2016
 </body>
 
 <script>
-  var randomNumber = Math.floor(Math.random()) + 1;
+  var randomNumber = Math.floor(Math.random() * 100) + 1;
   var guesses = document.querySelector('.guesses');
   var lastResult = document.querySelector('.lastResult');
-  var lowOrHi = document.querySelector('lowOrHi');
+  var lowOrHi = document.querySelector('.lowOrHi');
   var guessSubmit = document.querySelector('.guessSubmit');
   var guessField = document.querySelector('.guessField');
   var guessCount = 1;
@@ -96,7 +79,7 @@ bd1ad8c  on 26 Jul 2016
     guessField.value = '';
     guessField.focus();
   }
-  guessSubmit.addeventListener('click', checkGuess);
+  guessSubmit.addEventListener('click', checkGuess);
   
   function setGameOver() {
     guessField.disabled = true;
@@ -104,7 +87,7 @@ bd1ad8c  on 26 Jul 2016
     resetButton = document.createElement('button');
     resetButton.textContent = 'Start new game';
     document.body.appendChild(resetButton);
-    resetButton.addeventListener('click', resetGame);
+    resetButton.addEventListener('click', resetGame);
   }
   
   function resetGame() {
@@ -123,20 +106,7 @@ bd1ad8c  on 26 Jul 2016
   
     lastResult.style.backgroundColor = 'white';
   
-    randomNumber = Math.floor(Math.random()) + 1;
+    randomNumber = Math.floor(Math.random() * 100) + 1;
   }
 </script>
 </html>
-© 2018 GitHub, Inc.
-Terms
-Privacy
-Security
-Status
-Help
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
-Press h to open a hovercard with more details.
