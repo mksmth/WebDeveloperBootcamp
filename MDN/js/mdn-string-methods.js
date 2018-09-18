@@ -1,26 +1,13 @@
-const grabCities = document.querySelectorAll("li");
-const citiesList = Array.apply(null, grabCities);
-var cities = [;
-for(var i = 0; i < citiesList.length; i++) {
-   cities += "\"";
-   cities += citiesList[i].textContent;
-   cities += "\", ";
-}
-var cities += ];
-console.log(cities);
 
-
-// const nodelist = document.querySelectorAll('div');
-// const nodelistToArray = Array.apply(null, nodelist);
-
-//list.innerHTML = '';
-//var cities = ['lonDon', 'ManCHESTer', 'BiRmiNGHAM', 'liVERpoOL'];
+var list = document.querySelector('.outputA ul');
+list.innerHTML = '';
+var cities = ['lonDon', 'ManCHESTer', 'BiRmiNGHAM', 'liVERpoOL'];
 for(var i = 0; i < cities.length; i++) {
   var input = cities[i];
   // write your code just below here
-var lower = input.toLowerCase();
-var initial = lower.slice(0,1);
-var final = lower.replace(initial, initial.toUpperCase());
+  var lower = input.toLowerCase();
+  var initial = lower.slice(0,1);
+  var final = lower.replace(initial, initial.toUpperCase());
 
   var result = final;
   var listItem = document.createElement('li');
@@ -32,7 +19,7 @@ var final = lower.replace(initial, initial.toUpperCase());
 //Train Stations
 //***************
 
-var list = document.querySelector('.output ul');
+var list = document.querySelector('.outputB ul');
 list.innerHTML = '';
 var stations = ['MAN675847583748sjt567654;Manchester Piccadilly',
                 'GNF576746573fhdg4737dh4;Greenfield',
@@ -50,6 +37,26 @@ var name = stations[i].slice(colon + 1);
 
   var result = code + ": " + name;
   var listItem = document.createElement('li');
+  listItem.textContent = result;
+  list.appendChild(listItem);
+}
+
+//READING CITIES LIST FROM THE HTML AND SETTING AS AN ARRAY :) ******
+
+const grabCities = document.querySelectorAll(".outputZ li");
+const citiesList = Array.apply(null, grabCities);
+
+
+var list = document.querySelector(".outputZ ul");
+list.innerHTML = '';
+
+for(var i = 0; i < citiesList.length; i++) {
+  var input = citiesList[i].textContent;
+  var lower = input.toString().toLowerCase();
+  var initial = lower.slice(0,1);
+  var final = lower.replace(initial, initial.toUpperCase());
+  var result = final;
+  var listItem = document.createElement("li");
   listItem.textContent = result;
   list.appendChild(listItem);
 }
