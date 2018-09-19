@@ -34,6 +34,36 @@ for(var i = 0; i < citiesList.length; i++) {
   list.appendChild(listItem);
 }
 
+//READING CITIES LIST FROM THE HTML AND MANIPULATING WITH FOREACH :) ******
+
+var citiesList = document.querySelectorAll(".outputX li");
+
+var list = document.querySelector(".outputX ul");
+list.innerHTML = "";
+
+citiesList.forEach(function(city) {
+  var lower = city.textContent.toLowerCase();
+  var initial = lower.slice(0,1);
+  var final = lower.replace(initial, initial.toUpperCase());
+  var listItem = document.createElement("li");
+  listItem.textContent = final;
+  list.appendChild(listItem);
+}
+);
+
+
+// const nodelist = document.querySelectorAll('div');
+// const nodelistToArray = Array.apply(null, nodelist);
+
+// //later on ..
+
+// nodelistToArray.forEach(...);
+// nodelistToArray.map(...);
+// nodelistToArray.slice(...);
+
+
+
+
 
 //Train Stations
 //***************
@@ -66,12 +96,6 @@ var stationsList = document.querySelectorAll('.outputY li');
 var list = document.querySelector(".outputY ul");
 list.innerHTML = "";
 
-
-//var stations = ['MAN675847583748sjt567654;Manchester Piccadilly',
-//                 'GNF576746573fhdg4737dh4;Greenfield',
-//                 'LIV5hg65hd737456236dch46dg4;Liverpool Lime Street',
-//                 'SYB4f65hf75f736463;Stalybridge',
-//                 'HUD5767ghtyfyr4536dh45dg45dg3;Huddersfield'];
 
 for (var i = 0; i < stationsList.length; i++) {
   var input = stationsList[i].textContent;
