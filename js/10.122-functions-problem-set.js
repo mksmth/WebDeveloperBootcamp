@@ -5,12 +5,13 @@ function isEven(num) {
     return false;
   }
 }
-
+//refactor: return num % 2 === 0;
+//boolean so evaluates true or false without any extra code
 
 function factorial(num){
   var total = 1;
   for(i=num; i>0; i--){
-    total = total * i;
+    total *= i;
   }
   return total;
 }

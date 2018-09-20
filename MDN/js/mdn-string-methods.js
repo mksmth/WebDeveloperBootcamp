@@ -52,17 +52,6 @@ citiesList.forEach(function(city) {
 );
 
 
-// const nodelist = document.querySelectorAll('div');
-// const nodelistToArray = Array.apply(null, nodelist);
-
-// //later on ..
-
-// nodelistToArray.forEach(...);
-// nodelistToArray.map(...);
-// nodelistToArray.slice(...);
-
-
-
 
 
 //Train Stations
@@ -107,3 +96,31 @@ for (var i = 0; i < stationsList.length; i++) {
   listItem.textContent = result;
   list.appendChild(listItem);
 }
+
+//READING CITIES LIST UL FROM THE HTML AND MANIPULATING WITH FOREACH :) ******
+
+var citiesList = document.querySelectorAll(".outputW ul");
+var citiesListToArray = Array.apply(null, citiesList);
+console.log(citiesListToArray);
+
+// var list = document.querySelector(".outputW ul");
+// list.innerHTML = "";
+
+// citiesListToArray.forEach(function(city) {
+//   var lower = city.textContent.toLowerCase();
+//   var initial = lower.slice(0,1);
+//   var final = lower.replace(initial, initial.toUpperCase());
+//   var listItem = document.createElement("li");
+//   listItem.textContent = final;
+//   list.appendChild(listItem);
+// }
+// );
+
+// const nodelist = document.querySelectorAll('div');
+// const nodelistToArray = Array.apply(null, nodelist);
+
+// //later on ..
+
+// nodelistToArray.forEach(...);
+// nodelistToArray.map(...);
+// nodelistToArray.slice(...);
