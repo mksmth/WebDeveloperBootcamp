@@ -1,4 +1,3 @@
-console.log("Hello BlunderWorld");
 
 var customName = document.getElementById('customname');
 var randomize = document.querySelector('.randomize');
@@ -16,25 +15,32 @@ var insertz = ["spontaneously combusted","melted into a puddle on the sidewalk",
 
 //EVENT LISTENER AND PARTIAL FUNCTION DEFINITION
 
-randomize.addEventListener('click', result);
+qrandomize.addEventListener('click', result);
 
 function result() {
 
+  var newStory = storyText;
+  var xItem = randomValueFromArray(insertx);
+  var yItem = randomValueFromArray(inserty);
+  var zItem = randomValueFromArray(insertz);
+
+  newStory = newStory.replace(/:insertx:/g, xItem);
+  newStory = newStory.replace(/:inserty:/g, yItem);
+  newStory = newStory.replace(/:insertz:/g, zItem);
+
   if(customName.value !== '') {
     var name = customName.value;
-
-var colon = stations[i].indexOf(";");
-var name = stations[i].slice(colon + 1);
-
+    newStory = newStory.replace(/Bob/g, name);
   }
+
+  if(document.getElementById("uk").checked) {
+    var weight = Math.round(300 / 14);
+    var temperature =  Math.round((94-32) * 5 / 9);
+    weight += " stone";
+    temperature += " centigrade";
+    newStory = newStory.replace("300 pounds", weight);
+    newStory = newStory.replace("94 fahrenheit", temperature);
+  }
+  story.textContent = newStory;
+  story.style.visibility = "visible";
 }
-
-//   if(document.getElementById("uk").checked) {
-//     var weight = Math.round(300);
-//     var temperature =  Math.round(94);
-
-//   }
-
-//   story.textContent = ;
-//   story.style.visibility = 'visible';
-// }
