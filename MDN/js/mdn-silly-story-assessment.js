@@ -1,7 +1,7 @@
 
-var customName = document.getElementById('customname');
-var randomize = document.querySelector('.randomize');
-var story = document.querySelector('.story');
+var customName = document.getElementById("customname");
+var randomize = document.querySelector(".randomize");
+var story = document.querySelector(".story");
 
 function randomValueFromArray(array){
   return array[Math.floor(Math.random()*array.length)];
@@ -15,7 +15,7 @@ var insertz = ["spontaneously combusted","melted into a puddle on the sidewalk",
 
 //EVENT LISTENER AND PARTIAL FUNCTION DEFINITION
 
-qrandomize.addEventListener('click', result);
+randomize.addEventListener("click", result);
 
 function result() {
 
@@ -28,7 +28,7 @@ function result() {
   newStory = newStory.replace(/:inserty:/g, yItem);
   newStory = newStory.replace(/:insertz:/g, zItem);
 
-  if(customName.value !== '') {
+  if(customName.value !== "") {
     var name = customName.value;
     newStory = newStory.replace(/Bob/g, name);
   }
