@@ -5,6 +5,19 @@ var pickedColour = pickColour();
 var colourDisplay = document.querySelector("#colourDisplay");
 var messageDisplay = document.querySelector("#message");
 var h1 = document.querySelector("h1");
+var resetButton = document.querySelector("#reset");
+
+resetButton.addEventListener("click", function(){
+//generate all new 
+colours = generateRandomColours(6);
+//pick a new random colour from array
+pickedColour = pickColour();
+//change colours of squares
+colourDisplay.textContent = pickedColour.toUpperCase();
+for(var i = 0; i < squares.length; i++) {
+  squares[i].style.backgroundColor = colours[i];
+  }
+});
 
 colourDisplay.textContent = pickedColour.toUpperCase();
 
