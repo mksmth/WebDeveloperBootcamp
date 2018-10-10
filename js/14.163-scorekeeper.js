@@ -55,11 +55,8 @@ resetButton.addEventListener("click", function() {
 	gameOver = false;
 });
 
-	console.log("Not won yet");
-if(p1score && p2score < winningScore) {
-
 	numInput.addEventListener("change", function() {
 		winningScore = Number(this.value);
 		winningScoreDisplay.textContent = this.value;
 	});
-}
+
