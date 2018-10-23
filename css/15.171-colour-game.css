@@ -1,6 +1,8 @@
 body {
   background-color: #232323;
   color: #fff;
+  margin: 0;
+  font-family: Avenir,Montserrat;
 }
 
 .square {
@@ -9,11 +11,29 @@ body {
   padding-bottom: 30%;
   float: left;
   margin: 1.66%;
+  border-radius: 15%;
+  transition: 0.6s;
+  -webkit-transition: 0.6s;
+  -moz-transition: 0.6s;
+}
+
+h1 {
+  text-align: center;
+  background-color: steelblue;
+  margin: 0;
+  font-weight: normal;
+  text-transform: uppercase;
+  line-height: 1.1;
+  padding: 20px 0;
+}
+
+#colourDisplay {
+font-size: 200%;
 }
 
 #container {
   max-width: 600px;
-  margin: 0 auto;
+  margin: 20px auto;
 }
 
 h1 {
@@ -28,5 +48,29 @@ h1 {
 }
 
 .selected {
-  background: blue;
+  color: white;
+  background-color: steelblue;
+}
+
+#message {
+  display: inline-block;
+  width: 20%;
+}
+
+button {
+  border: none;
+  background: none;
+  text-transform: uppercase;
+  height: 100%;
+  font-weight: 700;
+  color: steelblue;
+  letter-spacing: 1px;
+  font-size: inherit;
+  transition: all, 0.25s;
+  outline: none;
+}
+
+button:hover {
+  color: white;
+  background-color: steelblue;
 }

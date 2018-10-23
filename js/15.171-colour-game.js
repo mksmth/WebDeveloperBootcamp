@@ -31,7 +31,7 @@ easyBtn.addEventListener("click", function() {
 hardBtn.addEventListener("click", function() {
   hardBtn.classList.add("selected");
   easyBtn.classList.remove("selected");
-  numSquaes = 6;
+  numSquares = 6;
   colours = generateRandomColours(numSquares);
   pickedColour = pickColour();
   colourDisplay.textContent = pickedColour;
@@ -49,10 +49,12 @@ colours = generateRandomColours(numSquares);
 pickedColour = pickColour();
 //change colours of squares
 colourDisplay.textContent = pickedColour.toUpperCase();
+this.textContent = "New Colours";
+messageDisplay.textContent = "";
 for(var i = 0; i < squares.length; i++) {
   squares[i].style.backgroundColor = colours[i];
   }
-  h1.style.backgroundColor = "#232323";
+  h1.style.backgroundColor = "steelblue";
 });
 
 colourDisplay.textContent = pickedColour.toUpperCase();
