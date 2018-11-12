@@ -5,13 +5,6 @@ background: -webkit-linear-gradient(to right, #EAEAEA, #DBDBDB, #F2F2F2, #ADA996
 background: linear-gradient(to right, #EAEAEA, #DBDBDB, #F2F2F2, #ADA996); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
-.fa-plus-square {
-  float: right;
-}
-
-.fa-trash-alt {
-
-}
 
 article {
   width: 360px;
@@ -32,6 +25,18 @@ h1 {
   font-weight: normal;
 }
 
+span {
+  color: white;
+  background: #e74c3c;
+  height: 100%;
+  width: 0;
+  margin-right: 20px;
+  text-align: center;
+  display: inline-block;
+  opacity: 0;
+  transition: 0.25s linear;
+}
+
 ul {
   list-style: none;
   margin: 0;
@@ -47,6 +52,11 @@ li {
 
 li:nth-child(even) {
   background-color: #f7f7f7;
+}
+
+li:hover span {
+  width: 40px;
+  opacity: 1;
 }
 
 input {
@@ -67,24 +77,12 @@ input:focus {
   outline: none;
 
 }
+
+.fa-plus-square {
+  float: right;
+}
+
 .toDone {
   color: gray;
   text-decoration: line-through;
-}
-
-span {
-  color: white;
-  background: #e74c3c;
-  height: 100%;
-  width: 0;
-  margin-right: 20px;
-  text-align: center;
-  display: inline-block;
-  opacity: 0;
-  transition: 0.25s linear;
-}
-
-li:hover span {
-  width: 40px;
-  opacity: 1;
 }
