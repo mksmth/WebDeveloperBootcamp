@@ -28,4 +28,6 @@ app.get("/repeat/:greeting/:num", function(req, res){
   res.send(greeting.repeat(num));
 });
 
-app.get("*", (req, res) => res.sendStatus(404));
+app.get("*", function(req, res){
+  res.send("Sorry, page not found... What are you doing with your life?");
+});
