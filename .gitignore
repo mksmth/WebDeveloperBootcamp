@@ -39,3 +39,8 @@ Thumbs.db
 # App generated files #
 #######################
 *.sublime-workspace
+
+
+# Node Modules #
+################
+node_modules/
