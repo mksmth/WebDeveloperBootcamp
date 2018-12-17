@@ -13,12 +13,18 @@ app.get("/", function(req, res){
 });
 
 app.get("/results", function(req,res) {
-  request("http://www.omdbapi.com/?s=Glasgow&apikey=thewdb", function (error, response, body) {
+  var query = req.query.search;
+  var url = "http://omdbapi.com/?s=" + query + "&apikey=thewdb"; 
+  request(url, function (error, response, body) {
     console.log('error:', error); // Print the error if one occurred
     console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-        if(!error && response.statusCode === 200){
-    var results = JSON.parse(body);
-    res.send(results["Search"][0]["Title"]);
+    if(!error && response.statusCode === 200){
+      var data = JSON.parse(body);
+      res.render("results", {data: data});
   }
 });
+});
+
+app.get("/search", function(req, res){
+  res.render("search");
 });
