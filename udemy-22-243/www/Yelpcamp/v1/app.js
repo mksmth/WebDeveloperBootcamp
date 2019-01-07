@@ -1,7 +1,7 @@
 var express = require("express");
 var app = express();
 app.use(express.static("public"));
-var bodyParser = require("body-parser");
+
 
 app.listen(3000);
 
