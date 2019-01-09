@@ -13,24 +13,26 @@ mongoose.connect("mongodb://localhost/yelp_camp", {useNewUrlParser: true});
 // SCHEMA SETUP
 var campgroundSchema = new mongoose.Schema({
   name: String,
-  image: String
+  image: String,
+  description: String
 });
 
 var Campground = mongoose.model("Campground", campgroundSchema);
 
-// Campground.create(
-//   {
-//     name: "Kendal Mint Camp",
-//     image: "https://www.campingandcaravanningclub.co.uk/campsites/images/sites/full/6190/2.jpg"
+Campground.create(
+  {
+    name: "Kendal Mint Camp",
+    image: "https://www.campingandcaravanningclub.co.uk/campsites/images/sites/full/6190/2.jpg",
+    description: "Some mint cake, somewhere in Kendal"
 
-//   }, function(err, campground){
-//     if(err){
-//       console/log(err);
-//     } else {
-//       console.log("NEW CAMPGROUND!!:");
-//       console.log(campground);
-//       }
-//   });
+  }, function(err, campground){
+    if(err){
+      console/log(err);
+    } else {
+      console.log("NEW CAMPGROUND!!:");
+      console.log(campground);
+      }
+  });
 
 app.get("/favicon.ico", (req, res) => res.sendStatus(204));
 
@@ -74,3 +76,17 @@ app.post("/campgrounds", function(req, res) {
 app.get("/campgrounds/new", function(req, res){
   res.render("new");
 });
+
+app.get("/campgrounds/:id", function(req, res){
+  //find the campsite with this id and render the SHOW template (PDP)
+  res.send("THIS WILL BE THE SHOW TEMPLATE");
+});
+
+// RESTFUL ROUTES
+// ===============
+
+// name      url               verb      description
+// INDEX     /campgrounds      GET       display all campsites
+// NEW       /campgrounds/new  GET       display form for new campsite
+// CREATE    /campgrounds      POST      add new campsite to DB 
+// SHOW      /campgrounds/:id  GET       show one campsite details
