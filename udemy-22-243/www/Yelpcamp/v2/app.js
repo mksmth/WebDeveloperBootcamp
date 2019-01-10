@@ -19,20 +19,20 @@ var campgroundSchema = new mongoose.Schema({
 
 var Campground = mongoose.model("Campground", campgroundSchema);
 
-Campground.create(
-  {
-    name: "Kendal Mint Camp",
-    image: "https://www.campingandcaravanningclub.co.uk/campsites/images/sites/full/6190/2.jpg",
-    description: "Some mint cake, somewhere in Kendal"
+// Campground.create(
+//   {
+//     name: "Kendal Mint Camp",
+//     image: "https://www.campingandcaravanningclub.co.uk/campsites/images/sites/full/6190/2.jpg",
+//     description: "Some mint cake, somewhere in Kendal"
 
-  }, function(err, campground){
-    if(err){
-      console/log(err);
-    } else {
-      console.log("NEW CAMPGROUND!!:");
-      console.log(campground);
-      }
-  });
+//   }, function(err, campground){
+//     if(err){
+//       console/log(err);
+//     } else {
+//       console.log("NEW CAMPGROUND!!:");
+//       console.log(campground);
+//       }
+//   });
 
 app.get("/favicon.ico", (req, res) => res.sendStatus(204));
 
@@ -54,7 +54,7 @@ app.get("/campgrounds", function(req, res){
       if(err){
           console.log(err);
       } else {
-          res.render("campgrounds", {campgrounds:allCampgrounds});
+          res.render("index", {campgrounds:allCampgrounds});
       }
     });
   });
@@ -62,7 +62,8 @@ app.get("/campgrounds", function(req, res){
 app.post("/campgrounds", function(req, res) {
   var name = req.body.name;
   var image = req.body.image;
-  var newCampground = {name: name, image: image};
+  var description = req.body.description;
+  var newCampground = {name: name, image: image, description: description};
   // Create new campsite and save to db
   Campground.create(newCampground, function(err, newlyCreated){
     if(err) {
@@ -73,13 +74,21 @@ app.post("/campgrounds", function(req, res) {
   });
 });
 
+// NEW: displays form to add new campsite to DB
 app.get("/campgrounds/new", function(req, res){
   res.render("new");
 });
 
+// SHOW ONE CAMPSITE DETAILS
 app.get("/campgrounds/:id", function(req, res){
   //find the campsite with this id and render the SHOW template (PDP)
-  res.send("THIS WILL BE THE SHOW TEMPLATE");
+  Campground.findById(req.params.id, function(err, foundCampground){
+      if(err){
+        console.log(err);
+      } else {
+  res.render("show", {campground: foundCampground});
+      }
+  });
 });
 
 // RESTFUL ROUTES
