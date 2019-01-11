@@ -1,0 +1,10 @@
+<% include ./partials/header.ejs %>
+<h1>My Blog App</h1></h1>
+
+  <% blogs.forEach(function(blog) { %>
+    <h4><%= blog.title %> - <%= blog.created %></h4>
+    <img src="<%= blog.image %>">
+    <p><%= blog.body %></p>
+  <% }); %>
+
+  <% include ./partials/footer.ejs %>
