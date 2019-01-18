@@ -60,19 +60,45 @@ app.get("/blogs/new", function(req, res){
   res.render("new");
 });
 
-//CREATE: saves a new blog post to the db
+//CREATE: DOESN'T WORK
 
+// app.post("/blogs", function(req, res){
+//   // create blog
+//   Blog.create(req.body.blog, function(err, newBlog){
+//       if(err){
+//           console.log(err);
+//       } else{
+//           //then, redirect to the index
+//           res.redirect("/blogs");
+//       }
+//   });
+  
+// });
+
+//CREATE THAT WORKS
 app.post("/blogs", function(req, res) {
   var title = req.body.title;
   var image = req.body.image;
   var body = req.body.body;
   var newBlog = {title: title, image: image, body: body};
-  // Create new campsite and save to db
+
   Blog.create(newBlog, function(err, newlyCreated){
     if(err) {
       console.log(err);
+      res.render("new");
     } else {
       res.redirect("blogs");
     }
+  });
+});
+
+// SHOW route
+app.get("/blogs/:id", function(req, res) {
+  Blog.findById(req.params.id, function(err, foundBlog){
+      if(err){
+        console.log(err);
+      } else {
+  res.render("show", {blog: foundBlog});
+      }
   });
 });
