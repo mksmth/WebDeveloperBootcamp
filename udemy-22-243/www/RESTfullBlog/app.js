@@ -102,3 +102,14 @@ app.get("/blogs/:id", function(req, res) {
       }
   });
 });
+
+// EDIT: displays form to update blog to DB
+app.get("/blogs/:id/edit", function(req, res){
+  Blog.findById(req.params.id, function(err, foundBlog){
+    if(err){
+      console.log(err);
+    } else {
+res.render("edit", {blog: foundBlog});
+    }
+  });
+});
