@@ -2,13 +2,16 @@ var express = require("express"),
     app = express(),
     bodyParser = require("body-parser"),
     mongoose = require("mongoose");
+    methodOverride = require("method-override");
 
 // APP CONFIG
 app.listen(3000);
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(methodOverride("_method"));
 app.set("view engine", "ejs");
 mongoose.connect("mongodb://localhost/restful_blog", {useNewUrlParser: true});
+mongoose.set('useFindAndModify', false)
 
 // MONGOOSE CONFIG
 var blogSchema = new mongoose.Schema({
@@ -110,6 +113,22 @@ app.get("/blogs/:id/edit", function(req, res){
       console.log(err);
     } else {
 res.render("edit", {blog: foundBlog});
+    }
+  });
+});
+
+//UPDATE: save updated campsite to DB
+
+app.put("/blogs/:id", function(req, res){
+  var title = req.body.title;
+  var image = req.body.image;
+  var body = req.body.body;
+  var updateBlog = {title: title, image: image, body: body};
+  Blog.findByIdAndUpdate(req.params.id, updateBlog, function(err, updatedBlog){
+    if(err){
+      console.log(err);
+    } else {
+      res.redirect("/blogs/" + req.params.id);
     }
   });
 });

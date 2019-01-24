@@ -2,18 +2,18 @@
 
 <div class="ui main text container segment">
     <div class="ui huge header">EDIT Blog: "<%= blog.title %>"</div>
-    <form action="/blogs" method="POST" class="ui form">
+    <form class="ui form" action="/blogs/<%= blog._id %>?_method=PUT" method="POST" >
       <div class="field">
         <label>Title</label>
-          <input type="text" name="title" value="<%= blog.title %>">
+          <input type="text" name="title"  placeholder="Blog Title" value="<%= blog.title %>">
       </div>
       <div class="field">
         <label>Image</label>
-          <input type="text" name="image" value="<%= blog.image %>">
+          <input type="text" name="image" placeholder="Blog Image" value="<%= blog.image %>">
       </div>
       <div class="field">
         <label>Body</label>
-          <textarea name="body"><%= blog.body %></textarea>
+          <textarea name="body"  placeholder="Blog Body - post here"><%= blog.body %></textarea>
       </div>
       <input type="submit" class="ui basic button olive">
     </form>
