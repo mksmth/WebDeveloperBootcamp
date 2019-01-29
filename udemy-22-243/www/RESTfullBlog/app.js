@@ -147,3 +147,9 @@ app.delete("/blogs/:id", function(req, res){
     }
   })
 });
+
+//TABLE of RESTful routes
+
+app.get("/routes", function(req, res){
+  res.render("routes");
+});
