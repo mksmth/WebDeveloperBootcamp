@@ -1,17 +1,20 @@
 var express = require("express"),
     app = express(),
     bodyParser = require("body-parser"),
-    mongoose = require("mongoose");
+    expressSanitizer = require("express-sanitizer"),
+    mongoose = require("mongoose"),
     methodOverride = require("method-override");
 
 // APP CONFIG
 app.listen(3000);
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(expressSanitizer());
 app.use(methodOverride("_method"));
 app.set("view engine", "ejs");
+mongoose.set("useFindAndModify", false);
 mongoose.connect("mongodb://localhost/restful_blog", {useNewUrlParser: true});
-mongoose.set('useFindAndModify', false)
+
 
 // MONGOOSE CONFIG
 var blogSchema = new mongoose.Schema({
@@ -82,7 +85,8 @@ app.get("/blogs/new", function(req, res){
 app.post("/blogs", function(req, res) {
   var title = req.body.title;
   var image = req.body.image;
-  var body = req.body.body;
+  var body = req.sanitize(req.body.body);
+
   var newBlog = {title: title, image: image, body: body};
 
   Blog.create(newBlog, function(err, newlyCreated){
@@ -122,7 +126,7 @@ res.render("edit", {blog: foundBlog});
 app.put("/blogs/:id", function(req, res){
   var title = req.body.title;
   var image = req.body.image;
-  var body = req.body.body;
+  var body = req.sanitize(req.body.body);
   var updateBlog = {title: title, image: image, body: body};
   Blog.findByIdAndUpdate(req.params.id, updateBlog, function(err, updatedBlog){
     if(err){
