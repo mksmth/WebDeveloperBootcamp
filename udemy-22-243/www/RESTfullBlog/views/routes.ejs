@@ -6,7 +6,7 @@
 
     <table class="ui striped unstackable table">
       <thead>
-        <tr>
+        <tr  class="ui inverted black table">
           <th>Name</th>
           <th>Path</th>
           <th>HTTP verb</th>
@@ -15,49 +15,49 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
+        <tr class="ui inverted grey table">
           <td>Index</td>
           <td>/dogs</td>
           <td>GET</td>
           <td>List all dogs</td>
           <td>Dog.find()</td>
         </tr>
-        <tr>
+        <tr class="ui inverted olive table">
           <td>New</td>
           <td>/dogs/new</td>
           <td>GET</td>
           <td>Show new dog form</td>
           <td>N/A</td>
         </tr>
-        <tr>
+        <tr class="ui inverted olive table">
           <td>Create</td>
           <td>/dogs</td>
           <td>POST</td>
           <td>Create a new dog, then redirect somewhere</td>
           <td>Dog.create()</td>
         </tr>
-        <tr>
+        <tr class="ui inverted teal table"> 
           <td>Show</td>
           <td>/dogs/:id</td>
           <td>GET</td>
           <td>Show info about one specific dog</td>
           <td>Dog.findById()</td>
         </tr>
-        <tr>
+        <tr class="ui inverted yellow table">
           <td>Edit</td>
           <td>/dogs/:id/edit</td>
           <td>GET</td>
           <td>Show edit form for one specific dog</td>
           <td>Dog.findById()</td>
         </tr>
-        <tr>
+        <tr class="ui inverted yellow table">
           <td>Update</td>
           <td>/dogs/:id</td>
           <td>PUT</td>
           <td>Update particular dog, then redirect somewhere</td>
           <td>Dog.findByIdAndUpdate()</td>
         </tr>
-        <tr>
+        <tr class="ui inverted pink table">
           <td>Destroy</td>
           <td>/dogs/:id/</td>
           <td>DELETE</td>
