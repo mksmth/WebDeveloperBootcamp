@@ -1,17 +1,17 @@
 {
-  "name": "package.json",
+  "name": "associations",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "embed.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Mike",
   "license": "ISC",
   "dependencies": {
-    "cat-me": "^1.0.3",
-    "express": "^4.16.4",
-    "faker": "^4.1.0"
+    "mongoose": "^5.4.7"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "nodemon": "^1.18.9"
+  }
 }
