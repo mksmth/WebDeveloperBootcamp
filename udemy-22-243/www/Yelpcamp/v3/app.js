@@ -15,25 +15,7 @@ mongoose.connect("mongodb://localhost/yelp_camp", {useNewUrlParser: true});
 //SEED DB
 seedDB();
 
-// Campsite.create(
-//   {
-//     name: "Kendal Mint Camp",
-//     image: "https://www.campingandcaravanningclub.co.uk/campsites/images/sites/full/6190/2.jpg",
-//     description: "Some mint cake, somewhere in Kendal"
-
-//   }, function(err, campsite){
-//     if(err){
-//       console/log(err);
-//     } else {
-//       console.log("NEW Campsite!!:");
-//       console.log(campsite);
-//       }
-//   });
-
 app.get("/favicon.ico", (req, res) => res.sendStatus(204));
-
-
-
 
 app.get("/", function(req, res){
 	res.redirect("/campsites");

@@ -1,16 +1,6 @@
 var mongoose = require("mongoose");
 var Campsite = require("./models/campsite");
 
-function seedDB(){
-  Campsite.deleteMany({}, function(err){
-  if(err) {
-    console.log(err);
-  } else {
-    console.log("Campsites removed");
-  }
-});
-}
-
 //ADD A FEW CAMPSITES
 
 var data = [
@@ -36,15 +26,24 @@ var data = [
   }
  ];
 
- data.forEach(function(seed){
-   Campsite.create(seed, function(err, data){
-     if(err){
-       console.log(err);
-     } else {
-       console.log("Added a Campsite");
-     }
-   });
-  });
+function seedDB(){
+  Campsite.deleteMany({}, function(err){
+    if(err) {
+      console.log(err);
+    } 
+    console.log("Campsites removed");
+    data.forEach(function(seed){
+      Campsite.create(seed, function(err, data){
+        if(err){
+          console.log(err);
+        } else {
+          console.log("Added a Campsite");
+        }
+      });
+    });
+  });   
+}
+
   
 //ADD A FEW COMMENTS
 
