@@ -7,18 +7,18 @@
     <h1>Welcome to YelpCamp!</h1>
     <p>View our handpicked campsites from aroud the Lake District</p>
     <p>
-      <a href="/campgrounds/new" class="btn btn-primary btn-lg">Add a new campground</a>
+      <a href="/campsites/new" class="btn btn-primary btn-lg">Add a new campsite</a>
     </p>
     </div>
   </header>
 
 
   <div class="row" style="display:flex; flex-wrap: wrap;">
-    <% campgrounds.forEach(function(campground) { %>
+    <% campsites.forEach(function(campsite) { %>
       <div class="col-md-3 col-sm-6">
         <div class="thumbnail">
-          <img src="<%= campground.image %>">
-          <h4><%= campground.name %></h4>
+          <img src="<%= campsite.image %>">
+          <h4><%= campsite.name %></h4>
         </div> 
 
       </div> 
