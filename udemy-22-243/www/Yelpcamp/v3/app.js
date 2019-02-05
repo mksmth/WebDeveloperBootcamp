@@ -2,7 +2,8 @@ var express = require("express"),
 app = express(),
 bodyParser = require("body-parser"),
 mongoose = require("mongoose"),
-Campsite = require("./models/campsite");
+Campsite = require("./models/campsite"),
+Comment = require("./models/comment"),
 seedDB = require("./seeds");
 
 app.listen(3003);
@@ -55,13 +56,14 @@ app.get("/campsites/new", function(req, res){
 // SHOW ONE CAMPSITE DETAILS
 app.get("/campsites/:id", function(req, res){
   //find the campsite with this id and render the SHOW template (PDP)
-  Campsite.findById(req.params.id, function(err, foundCampsite){
+  Campsite.findById(req.params.id).populate("comments").exec(function(err, foundCampsite){
       if(err){
         console.log(err);
       } else {
-  res.render("show", {campsite: foundCampsite});
-      }
-  });
+          console.log(foundCampsite);
+          res.render("show", {campsite: foundCampsite});
+        }
+    });
 });
 
 // RESTFUL ROUTES
