@@ -1,0 +1,20 @@
+<% include partials/header %>
+
+<div class="container">
+
+  <header class="jumbotron">
+    <div class="container">
+      <h1><%= campsite.name %></h1>
+    </div>
+  </header>
+
+  <img src="<%= campsite.image %>">
+  <p><%= campsite.description %></p>
+
+    <% campsite.comments.forEach(function(comment) { %>
+          <h4><%= comment.author %> says:</h4>
+          <p>"<%= comment.text %>"</p>
+    <% }); %>
+
+
+<% include partials/footer %>
