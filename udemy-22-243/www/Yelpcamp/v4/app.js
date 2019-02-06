@@ -6,12 +6,12 @@ Campsite = require("./models/campsite"),
 Comment = require("./models/comment"),
 seedDB = require("./seeds");
 
-app.listen(3004);
-
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 mongoose.connect("mongodb://localhost/yelpcamp_v4", {useNewUrlParser: true});
+
+app.listen(3004);
 
 //SEED DB
 seedDB();
@@ -28,7 +28,7 @@ app.get("/campsites", function(req, res){
       if(err){
           console.log(err);
       } else {
-          res.render("index", {campsites:allCampsites});
+          res.render("campsites/index", {campsites:allCampsites});
       }
     });
   });
@@ -50,7 +50,7 @@ app.post("/campsites", function(req, res) {
 
 // NEW: displays form to add new campsite to DB
 app.get("/campsites/new", function(req, res){
-  res.render("new");
+  res.render("campsites/new");
 });
 
 // SHOW ONE CAMPSITE DETAILS
@@ -61,10 +61,58 @@ app.get("/campsites/:id", function(req, res){
         console.log(err);
       } else {
           console.log(foundCampsite);
-          res.render("show", {campsite: foundCampsite});
+          res.render("campsites/show", {campsite: foundCampsite});
         }
     });
 });
+
+// ==================
+// COMMENTS ROUTES
+// ==================
+
+// ******** NEW COMMENTS FORM *******
+
+app.get("/campsites/:id/comments/new", function(req, res){
+  //find the campsite with this id and render the SHOW template (PDP)
+  Campsite.findById(req.params.id, function(err, campsite) {
+      if(err){
+        console.log(err);
+      } else {
+          res.render("comments/new", {campsite: campsite});
+        }
+    });
+  });
+
+  // ******** CREATE COMMENTS  *******
+
+  app.post("/campsites/:id/comments", function(req, res) {
+    // var author = req.body.author;
+    // var text = req.body.text;
+    // var newComment = {author: author, text: text};
+
+    //lookup campsite using ID
+    Campsite.findById(req.params.id, function(err, campsite) {
+      if(err){
+        console.log(err);
+      } else {
+    //create new comment
+    Comment.create(req.body.comment, function(err, comment){
+      if(err){
+        console.log(err);
+       res.redirect("/campsites");
+      } else {
+        campsite.comments.push(comment);
+        campsite.save();
+   //redirect
+       res.redirect("/campsites/" + campsite._id);
+        }
+      });
+    }
+  });
+});
+
+
+
 
 // RESTFUL ROUTES
 // ===============

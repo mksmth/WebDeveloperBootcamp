@@ -32,6 +32,12 @@ function seedDB(){
       console.log(err);
     } 
     console.log("Campsites removed");
+  Comment.deleteMany({}, function(err){
+    if(err) {
+      console.log(err);
+    } 
+    console.log("Comments removed");
+    });
     data.forEach(function(seed){
       Campsite.create(seed, function(err, campsite){
         if(err){
@@ -42,10 +48,6 @@ function seedDB(){
             {
               text: "This place is beautiful",
               author: "HomersOdyssey"
-             },
-             {
-              text: "This place is soooo beautiful",
-              author: "Iliad's Journey"
              },
               function(err, comments){
                   if(err){
@@ -60,7 +62,7 @@ function seedDB(){
       });
     });
   });   
-}
+  }
 
   
 //ADD A FEW COMMENTS
