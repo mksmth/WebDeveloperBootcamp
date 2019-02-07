@@ -6,7 +6,7 @@ Campsite = require("./models/campsite"),
 Comment = require("./models/comment"),
 seedDB = require("./seeds");
 
-app.use(express.static("public"));
+app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 mongoose.connect("mongodb://localhost/yelpcamp_v5", {useNewUrlParser: true});
