@@ -35,6 +35,10 @@ app.get("/secret", isLoggedIn, function(req, res){
 	res.render("secret");
 });
 
+app.get("/hidden", isLoggedIn, function(req, res){
+	res.render("hidden");
+});
+
 app.get("/register", function(req, res){
 	res.render("register");
 });
@@ -48,7 +52,10 @@ app.post("/register", function(req, res){
       return res.render("register");
     }
     passport.authenticate("local")(req, res, function(){
-      res.redirect("/secret");
+        res.redirect(req.session.returnTo || '/');
+        delete req.session.returnTo;
+        req.session.returnTo = null;
+
     });
 });
 });
@@ -58,7 +65,7 @@ app.get("/login", function(req, res){
 });
 
 app.post("/login", passport.authenticate("local", {
-  successRedirect: "/secret",
+  successReturnToOrRedirect: "/",
   failureRedirect: "/login"
 }) ,function(req, res){
 });
@@ -70,7 +77,8 @@ app.get("/logout", function(req, res){
 
 function isLoggedIn(req, res, next){
   if(req.isAuthenticated()){
-    return next();
+  return next();
   }
-  res.redirect("/login");
+  req.session.returnTo = req.originalUrl; 
+res.redirect('/login');
 }
