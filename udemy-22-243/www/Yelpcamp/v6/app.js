@@ -1,10 +1,13 @@
-var express = require("express"),
-app = express(),
-bodyParser = require("body-parser"),
-mongoose = require("mongoose"),
-Campsite = require("./models/campsite"),
-Comment = require("./models/comment"),
-seedDB = require("./seeds");
+var express               = require("express"),
+    app                   = express(),
+    bodyParser            = require("body-parser"),
+    mongoose              = require("mongoose"),
+    passport              = require("passport"),
+    LocalStrategy         =  require("passport-local"),
+    Campsite              = require("./models/campsite"),
+    Comment               = require("./models/comment"),
+    User                  = require("./models/user"),
+    seedDB                = require("./seeds");
 
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.urlencoded({extended: true}));
@@ -15,6 +18,26 @@ app.listen(3006);
 
 //SEED DB
 seedDB();
+
+//PASSPORT CONFIG
+
+app.use(require("express-session")({
+  secret: "Alfie is the cutest dog",
+  resave: false,
+  saveUninitialized: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+app.use(function(req, res, next){
+  res.locals.currentUser = req.user;
+  next();
+});
+
 
 app.get("/favicon.ico", (req, res) => res.sendStatus(204));
 
@@ -77,7 +100,7 @@ app.post("/campsites", function(req, res) {
 
 // ******** NEW COMMENTS FORM *******
 
-app.get("/campsites/:id/comments/new", function(req, res){
+app.get("/campsites/:id/comments/new", isLoggedIn, function(req, res){
   //find the campsite with this id and render the SHOW template (PDP)
   Campsite.findById(req.params.id, function(err, campsite) {
       if(err){
@@ -90,7 +113,7 @@ app.get("/campsites/:id/comments/new", function(req, res){
 
   // ******** CREATE COMMENTS  *******
 
-  app.post("/campsites/:id/comments", function(req, res) {
+  app.post("/campsites/:id/comments", isLoggedIn, function(req, res) {
     // var author = req.body.author;
     // var text = req.body.text;
     // var newComment = {author: author, text: text};
@@ -116,14 +139,46 @@ app.get("/campsites/:id/comments/new", function(req, res){
   });
 });
 
+// ==================
+// AUTH ROUTES
+// ==================
 
+app.get("/register", function(req, res){
+	res.render("register");
+});
 
+app.post("/register", function(req, res){
+  var newUser = new User({username: req.body.username});
+  User.register(newUser, req.body.password, function(err, user){
+    if(err) {
+      console.log(err);
+      return res.render("register");
+    }
+    passport.authenticate("local")(req, res, function(){
+        res.redirect("campsites");
+    });
+}); 
+});
 
-// RESTFUL ROUTES
-// ===============
+app.get("/login", function(req, res){
+	res.render("login");
+});
 
-// name      url               verb      description
-// INDEX     /campsites      GET       display all campsites
-// NEW       /campsites/new  GET       display form for new campsite
-// CREATE    /campsites      POST      add new campsite to DB 
-// SHOW      /campsites/:id  GET       show one campsite details
+app.post("/login", passport.authenticate("local", {
+  successReturnToOrRedirect: "/campsites",
+  failureRedirect: "/login"
+}) ,function(req, res){
+});
+
+app.get("/logout", function(req, res){
+  req.logout();
+  res.redirect("/");
+});
+
+function isLoggedIn(req, res, next){
+  if(req.isAuthenticated()){
+  return next();
+  }
+  req.session.returnTo = req.originalUrl; 
+res.redirect('/login');
+}
