@@ -6,7 +6,7 @@ Campsite = require("./models/campsite"),
 Comment = require("./models/comment"),
 seedDB = require("./seeds");
 
-app.use(express.static(__dirname + "/public"));
+app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 mongoose.connect("mongodb://localhost/yelpcamp_v5", {useNewUrlParser: true});
@@ -34,23 +34,6 @@ app.get("/campsites", function(req, res){
     });
   });
 
- // SHOW ONE CAMPSITE DETAILS
-app.get("/campsites/:id", function(req, res){
-  //find the campsite with this id and render the SHOW template (PDP)
-  Campsite.findById(req.params.id).populate("comments").exec(function(err, foundCampsite){
-      if(err){
-        console.log(err);
-      } else {
-          // console.log(foundCampsite);
-          res.render("campsites/show", {campsite: foundCampsite});
-        }
-    });
-});
-
-// NEW: displays form to add new campsite to DB
-app.get("/campsites/new", function(req, res){
-  res.render("campsites/new");
-});
 
 //CREATE:
 app.post("/campsites", function(req, res) {
@@ -67,8 +50,25 @@ app.post("/campsites", function(req, res) {
     }
   });
 });
+// NEW: displays form to add new campsite to DB
+app.get("/campsites/new", function(req, res){
+  res.render("campsites/new");
+});
 
 
+
+ // SHOW ONE CAMPSITE DETAILS
+ app.get("/campsites/:id", function(req, res){
+  //find the campsite with this id and render the SHOW template (PDP)
+  Campsite.findById(req.params.id).populate("comments").exec(function(err, foundCampsite){
+      if(err){
+        console.log(err);
+      } else {
+          // console.log(foundCampsite);
+          res.render("campsites/show", {campsite: foundCampsite});
+        }
+    });
+});
 
 
 // ==================

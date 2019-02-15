@@ -60,7 +60,7 @@ app.get("/campsites/:id", function(req, res){
       if(err){
         console.log(err);
       } else {
-          console.log(foundCampsite);
+          // console.log(foundCampsite);
           res.render("campsites/show", {campsite: foundCampsite});
         }
     });
