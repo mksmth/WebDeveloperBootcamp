@@ -38,29 +38,29 @@ function seedDB(){
     } 
     console.log("Comments removed");
     });
-    data.forEach(function(seed){
-      Campsite.create(seed, function(err, campsite){
-        if(err){
-          console.log(err);
-        } else {
-          console.log("Added a Campsite");
-          Comment.create(
-            {
-              text: "This place is beautiful",
-              author: "HomersOdyssey"
-             },
-              function(err, comments){
-                  if(err){
-                    console.log(err);
-                  } else {
-                    campsite.comments.push(comments);
-                    campsite.save();
-                    console.log("Added a comment");
-                  }
-             })
-        }
-      });
-    });
+    // data.forEach(function(seed){
+    //   Campsite.create(seed, function(err, campsite){
+    //     if(err){
+    //       console.log(err);
+    //     } else {
+    //       console.log("Added a Campsite");
+    //       Comment.create(
+    //         {
+    //           text: "This place is beautiful",
+    //           author: "HomersOdyssey"
+    //          },
+    //           function(err, comments){
+    //               if(err){
+    //                 console.log(err);
+    //               } else {
+    //                 campsite.comments.push(comments);
+    //                 campsite.save();
+    //                 console.log("Added a comment");
+    //               }
+    //          })
+    //     }
+    //   });
+    // });
   });   
   }
 
