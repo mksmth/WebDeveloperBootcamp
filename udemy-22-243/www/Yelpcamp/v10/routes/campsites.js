@@ -64,12 +64,24 @@ router.get("/:id/edit", isLoggedIn, function(req, res){
 // UPDATE CAMPSITE
 router.put("/:id", isLoggedIn, function(req, res) {
   // Create new campsite and save to db
-  Campsite.findOneAndUpdate(req.params.id, req.body.campsite, function(err, updatedCampsite){
+  Campsite.findByIdAndUpdate(req.params.id, req.body.campsite, function(err, updatedCampsite){
       if(err) {
         res.redirect("/campsites");
     } else {
         console.log("This campsite was updated by: " + req.user.username);
         res.redirect("/campsites/" + req.params.id);
+    }
+  });
+});
+
+// DESTROY A CAMPSITE
+router.delete("/:id", isLoggedIn, function(req, res) {
+  Campsite.findByIdAndRemove(req.params.id, function(err){
+    if(err) {
+      res.redirect("/campsites/" + req.params.id);
+    } else {
+      console.log("This campsite was deleted by: " + req.user.username);
+      res.redirect("/campsites/");
     }
   });
 });
