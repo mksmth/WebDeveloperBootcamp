@@ -18,39 +18,7 @@ router.get("/", function(req, res){
 router.get("/new", isLoggedIn, function(req, res){
   res.render("campsites/new");
 });
-// // ******** CREATE COMMENTS  *******
 
-// router.post("/", isLoggedIn, function(req, res) {
-//   // var author = req.body.author;
-//   // var text = req.body.text;
-//   // var newComment = {author: author, text: text};
-
-//   //lookup campsite using ID
-//   Campsite.findById(req.params.id, function(err, campsite) {
-//     if(err){
-//       console.log(err);
-//     } else {
-//   //create new comment
-//   Comment.create(req.body.comment, function(err, comment){
-//     if(err){
-//       console.log(err);
-//      res.redirect("/campsites");
-//     } else {
-//       console.log("This comment was published by: " + req.user.username);
-//       comment.author.id = req.user._id;
-//       comment.author.username = req.user.username;
-//       comment.save();
-//       campsite.comments.push(comment);
-//       campsite.save();
-//  //redirect
-//      res.redirect("/campsites/" + campsite._id);
-//       }
-//     });
-//   }
-// });
-// });
-// **********
-// **********
 
 //CREATE A CAMPSITE
 router.post("/", isLoggedIn, function(req, res) {
@@ -80,6 +48,33 @@ router.post("/", isLoggedIn, function(req, res) {
         }
     });
 });
+
+// EDIT CAMPSITE
+router.get("/:id/edit", isLoggedIn, function(req, res){
+  Campsite.findById(req.params.id, function(err, foundCampsite){
+    if(err){
+      console.log(err);
+    } else {
+        // console.log(foundCampsite);
+        res.render("campsites/edit", {campsite: foundCampsite});
+      }
+  });
+});
+
+// UPDATE CAMPSITE
+router.put("/:id", isLoggedIn, function(req, res) {
+  // Create new campsite and save to db
+  Campsite.findOneAndUpdate(req.params.id, req.body.campsite, function(err, updatedCampsite){
+      if(err) {
+        res.redirect("/campsites");
+    } else {
+        console.log("This campsite was updated by: " + req.user.username);
+        res.redirect("/campsites/" + req.params.id);
+    }
+  });
+});
+
+
 
 function isLoggedIn(req, res, next){
   if(req.isAuthenticated()){
