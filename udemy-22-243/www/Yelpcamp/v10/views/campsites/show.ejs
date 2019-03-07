@@ -15,10 +15,12 @@
           <h4 class=pull-right">#15 a night</h4>
           <h4><a href=""><%= campsite.name %></a><h4>
             <h5>Submitted by: <%= campsite.author.username %></h5>
-            <a class="btn btn-warning" href="/campsites/<%= campsite._id %>/edit">EDIT</a>
-            <form id="delete_form" action="/campsites/<%= campsite._id %>?_method=DELETE" method="POST">
-              <button class="btn btn-danger">DELETE</button>
-            </form>
+            <% if(currentUser && campsite.author.id.equals(currentUser._id)){ %>
+              <a class="btn btn-xs btn-warning" href="/campsites/<%= campsite._id %>/edit">EDIT</a>
+              <form id="delete_form" action="/campsites/<%= campsite._id %>?_method=DELETE" method="POST">
+                <button class="btn btn-xs btn-danger">DELETE</button>
+              </form>
+              <% } %>
           <p><%= campsite.description %></p>
         </div>
       </div>
