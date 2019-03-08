@@ -58,7 +58,6 @@ router.get("/:id/edit", checkCampsiteAuthor, function(req, res){
 
 // UPDATE CAMPSITE
 router.put("/:id", checkCampsiteAuthor, function(req, res) {
-  // Create new campsite and save to db
   Campsite.findByIdAndUpdate(req.params.id, req.body.campsite, function(err, updatedCampsite){
       if(err) {
         res.redirect("/campsites");
