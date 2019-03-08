@@ -50,7 +50,7 @@ router.get("/new", isLoggedIn, function(req, res){
 
 // ****** EDIT COMMENT ******
 
-router.get("/:comment_id/edit", function(req, res){
+router.get("/:comment_id/edit", checkCommentAuthor, function(req, res){
   Comment.findById(req.params.comment_id, function(err, foundComment){
     if(err){
       res.redirect("back");
@@ -61,13 +61,25 @@ router.get("/:comment_id/edit", function(req, res){
 });
 
 // ****** UPDATE COMMENT ******
-router.put("/:comment_id", isLoggedIn, function(req, res) {
+router.put("/:comment_id", checkCommentAuthor, function(req, res) {
   Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, function(err, updatedComment){
       if(err) {
         res.redirect("/campsites");
     } else {
         console.log("This comment was updated by: " + req.user.username);
         res.redirect("/campsites/" + req.params.id);
+    }
+  });
+});
+
+// DESTROY A COMMENT
+router.delete("/:comment_id", checkCommentAuthor, function(req, res) {
+  Comment.findByIdAndRemove(req.params.comment_id, function(err){
+    if(err) {
+      res.redirect("/campsites/");
+    } else {
+      console.log("This campsite was deleted by: " + req.user.username);
+      res.redirect("/campsites/" + req.params.id);
     }
   });
 });
@@ -81,6 +93,24 @@ function isLoggedIn(req, res, next){
   }
   req.session.returnTo = req.originalUrl; 
 res.redirect('/login');
+}
+
+function checkCommentAuthor(req, res, next){
+  if(req.isAuthenticated()){
+    Comment.findById(req.params.comment_id, function(err, foundComment){
+      if(err){
+        res.redirect("back");
+      } else {
+        if(foundComment.author.id.equals(req.user._id)){
+          next();
+        } else {
+          res.redirect("back");
+        }
+      }
+    });
+  } else {
+    res.redirect("/login");
+  }
 }
 
 module.exports = router;
