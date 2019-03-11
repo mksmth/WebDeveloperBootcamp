@@ -64,7 +64,7 @@ router.get("/:comment_id/edit", checkCommentAuthor, function(req, res){
 router.put("/:comment_id", checkCommentAuthor, function(req, res) {
   Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, function(err, updatedComment){
       if(err) {
-        res.redirect("/campsites");
+        res.redirect("back");
     } else {
         console.log("This comment was updated by: " + req.user.username);
         res.redirect("/campsites/" + req.params.id);
@@ -76,7 +76,7 @@ router.put("/:comment_id", checkCommentAuthor, function(req, res) {
 router.delete("/:comment_id", checkCommentAuthor, function(req, res) {
   Comment.findByIdAndRemove(req.params.comment_id, function(err){
     if(err) {
-      res.redirect("/campsites/");
+      res.redirect("back");
     } else {
       console.log("This campsite was deleted by: " + req.user.username);
       res.redirect("/campsites/" + req.params.id);
