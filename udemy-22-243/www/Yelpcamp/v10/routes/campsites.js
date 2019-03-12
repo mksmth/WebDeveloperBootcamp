@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var Campsite = require("../models/campsite");
+var middleware = require("../middlewares");
 
 // INDEX
 router.get("/", function(req, res){
@@ -15,13 +16,13 @@ router.get("/", function(req, res){
   });
 
 // NEW: displays form to add new campsite to DB
-router.get("/new", isLoggedIn, function(req, res){
+router.get("/new", middleware.isLoggedIn, function(req, res){
   res.render("campsites/new");
 });
 
 
 //CREATE A CAMPSITE
-router.post("/", isLoggedIn, function(req, res) {
+router.post("/", middleware.isLoggedIn, function(req, res) {
   // Create new campsite and save to db
   Campsite.create(req.body.campsite, function(err, campsite){
     campsite.author.id = req.user._id;
@@ -50,14 +51,14 @@ router.post("/", isLoggedIn, function(req, res) {
 });
 
 // EDIT CAMPSITE
-router.get("/:id/edit", checkCampsiteAuthor, function(req, res){
+router.get("/:id/edit", middleware.checkCampsiteAuthor, function(req, res){
   Campsite.findById(req.params.id, function(err, foundCampsite){
     res.render("campsites/edit", {campsite: foundCampsite});
   });
 });
 
 // UPDATE CAMPSITE
-router.put("/:id", checkCampsiteAuthor, function(req, res) {
+router.put("/:id", middleware.checkCampsiteAuthor, function(req, res) {
   Campsite.findByIdAndUpdate(req.params.id, req.body.campsite, function(err, updatedCampsite){
       if(err) {
         res.redirect("/campsites");
@@ -69,7 +70,7 @@ router.put("/:id", checkCampsiteAuthor, function(req, res) {
 });
 
 // DESTROY A CAMPSITE
-router.delete("/:id", checkCampsiteAuthor, function(req, res) {
+router.delete("/:id", middleware.checkCampsiteAuthor, function(req, res) {
   Campsite.findByIdAndRemove(req.params.id, function(err){
     if(err) {
       res.redirect("/campsites/" + req.params.id);
@@ -79,33 +80,6 @@ router.delete("/:id", checkCampsiteAuthor, function(req, res) {
     }
   });
 });
-
-
-function isLoggedIn(req, res, next){
-  if(req.isAuthenticated()){
-  return next();
-  }
-  req.session.returnTo = req.originalUrl; 
-res.redirect('/login');
-}
-
-function checkCampsiteAuthor(req, res, next){
-  if(req.isAuthenticated()){
-    Campsite.findById(req.params.id, function(err, foundCampsite){
-      if(err){
-        res.redirect("back");
-      } else {
-        if(foundCampsite.author.id.equals(req.user._id)){
-          next();
-        } else {
-          res.redirect("back");
-        }
-      }
-    });
-  } else {
-    res.redirect("back");
-  }
-}
 
 
 module.exports = router;

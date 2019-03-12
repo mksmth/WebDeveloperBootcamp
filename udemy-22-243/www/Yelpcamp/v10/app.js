@@ -10,9 +10,14 @@ var express               = require("express"),
     User                  = require("./models/user"),
     seedDB                = require("./seeds");
 
+
+
 var indexRoutes           = require("./routes/index"),
     campsiteRoutes        = require("./routes/campsites"),
     commentRoutes         = require("./routes/comments");
+
+
+
 
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.urlencoded({extended: true}));
@@ -48,5 +53,3 @@ app.use(function(req, res, next){
 app.use(indexRoutes);
 app.use("/campsites", campsiteRoutes);
 app.use("/campsites/:id/comments", commentRoutes);
-
-
