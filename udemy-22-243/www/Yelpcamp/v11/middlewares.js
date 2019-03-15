@@ -6,8 +6,9 @@ function isLoggedIn(req, res, next){
     if(req.isAuthenticated()){
     return next();
     }
-    req.session.returnTo = req.originalUrl; 
-  res.redirect('/login');
+    // req.session.returnTo = req.originalUrl; 
+    req.flash("error", "Please Log in first");
+    res.redirect('/login');
   }
 
 

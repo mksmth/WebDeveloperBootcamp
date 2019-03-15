@@ -22,9 +22,11 @@ router.post("/register", function(req, res){
   User.register(newUser, req.body.password, function(err, user){
     if(err) {
       console.log(err);
+      req.flash("error", err.message);
       return res.render("register");
     }
     passport.authenticate("local")(req, res, function(){
+        req.flash("success", "Welcome, you're now signed up!");
         res.redirect("campsites");
     });
 }); 
@@ -42,17 +44,8 @@ router.post("/login", passport.authenticate("local", {
 
 router.get("/logout", function(req, res){
   req.logout();
-  res.redirect("/");
+  req.flash("success", "LOGGED YOU OUT");
+  res.redirect("/campsites");
 });
-
-// ****** MIDDLEWARE ******
-
-function isLoggedIn(req, res, next){
-  if(req.isAuthenticated()){
-  return next();
-  }
-  req.session.returnTo = req.originalUrl; 
-res.redirect('/login');
-}
 
 module.exports = router;
