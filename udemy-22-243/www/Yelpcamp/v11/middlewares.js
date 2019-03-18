@@ -1,16 +1,14 @@
 var Campsite = require("./models/campsite");
 var Comment = require("./models/comment");
 
-
 function isLoggedIn(req, res, next){
-    if(req.isAuthenticated()){
-    return next();
-    }
-    // req.session.returnTo = req.originalUrl; 
-    req.flash("error", "Please Log in first");
-    res.redirect('/login');
+  if(req.isAuthenticated()){
+  return next();
   }
-
+  req.session.returnTo = req.originalUrl;
+  req.flash("error", "Please Log in to do that.");
+res.redirect('/login');
+}
 
   function checkCampsiteAuthor(req, res, next){
     if(req.isAuthenticated()){
@@ -26,8 +24,9 @@ function isLoggedIn(req, res, next){
         }
       });
     } else {
+
       res.redirect("back");
-    }
+}
   }
 
 

@@ -32,6 +32,7 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
       console.log(err);
     } else {
       console.log("This campsite was published by: " + req.user.username);
+      req.flash("success", "Great, you've published a new campsite listing, called \"" + req.body.campsite.name + "\"");
       res.redirect("campsites");
     }
   });
