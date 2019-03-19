@@ -2,7 +2,7 @@ var express = require("express");
 var router = express.Router({mergeParams: true});
 var Campsite = require("../models/campsite");
 var Comment = require("../models/comment");
-var middleware = require("../middlewares");
+var middleware = require("../middleware");
 
 // ******** NEW COMMENTS *******
 

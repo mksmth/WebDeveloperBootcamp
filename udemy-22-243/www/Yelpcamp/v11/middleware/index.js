@@ -1,5 +1,5 @@
-var Campsite = require("./models/campsite");
-var Comment = require("./models/comment");
+var Campsite = require("../models/campsite");
+var Comment = require("../models/comment");
 
 function isLoggedIn(req, res, next){
   if(req.isAuthenticated()){
@@ -13,18 +13,19 @@ res.redirect('/login');
   function checkCampsiteAuthor(req, res, next){
     if(req.isAuthenticated()){
       Campsite.findById(req.params.id, function(err, foundCampsite){
-        if(err){
+        if(err || !foundCampsite) {
+          req.flash("error", "Campsite not found");
           res.redirect("back");
         } else {
           if(foundCampsite.author.id.equals(req.user._id)){
             next();
           } else {
+            req.flash("error", "You don't have permission to do that");
             res.redirect("back");
           }
         }
       });
     } else {
-
       res.redirect("back");
 }
   }
@@ -35,7 +36,6 @@ res.redirect('/login');
       Comment.findById(req.params.comment_id, function(err, foundComment){
         if(err){
           req.flash("error", "Oops, something went wrong. Please try again later.");
-
           res.redirect("back");
         } else {
           if(foundComment.author.id.equals(req.user._id)){
