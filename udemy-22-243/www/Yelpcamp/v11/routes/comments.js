@@ -80,6 +80,7 @@ router.delete("/:comment_id", middleware.checkCommentAuthor, function(req, res) 
       res.redirect("back");
     } else {
       console.log("This campsite was deleted by: " + req.user.username);
+      req.flash("success", "You have deleted a comment");
       res.redirect("/campsites/" + req.params.id);
     }
   });
