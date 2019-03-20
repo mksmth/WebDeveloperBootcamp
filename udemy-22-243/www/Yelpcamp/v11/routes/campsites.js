@@ -40,16 +40,19 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
 
  // SHOW ONE CAMPSITE DETAILS
  router.get("/:id", function(req, res){
-  //find the campsite with this id and render the SHOW template (PDP)
-  Campsite.findById(req.params.id).populate("comments").exec(function(err, foundCampsite){
-      if(err){
-        console.log(err);
-      } else {
-          // console.log(foundCampsite);
-          res.render("campsites/show", {campsite: foundCampsite});
-        }
-    });
+//   //find the campsite with this id and render the SHOW template (PDP)
+Campsite.findById(req.params.id).populate("comments").exec(function(err, foundCampsite){
+      if(err || !foundCampsite){
+          console.log(err);
+          req.flash("error", "Sorry, that Campsite does not exist!");
+          return res.redirect("/campsites");
+      }
+      console.log(foundCampsite)
+      //render show template with that campground
+      res.render("campsites/show", {campsite: foundCampsite});
+  });
 });
+
 
 // EDIT CAMPSITE
 router.get("/:id/edit", middleware.checkCampsiteAuthor, function(req, res){
