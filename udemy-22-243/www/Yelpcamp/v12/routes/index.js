@@ -7,7 +7,7 @@ var middleware = require("../middleware");
 router.get("/favicon.ico", (req, res) => res.sendStatus(204));
 
 router.get("/", function(req, res){
-	res.redirect("/campsites");
+	res.render("home");
 });
 
 // ==================
