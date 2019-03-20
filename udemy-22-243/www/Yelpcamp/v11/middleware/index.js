@@ -10,50 +10,51 @@ function isLoggedIn(req, res, next){
 res.redirect('/login');
 }
 
-  function checkCampsiteAuthor(req, res, next){
-    if(req.isAuthenticated()){
-      Campsite.findById(req.params.id, function(err, foundCampsite){
-        if(err || !foundCampsite) {
-          req.flash("error", "Campsite not found");
-          res.redirect("back");
+function checkCampsiteAuthor(req, res, next){
+  if(req.isAuthenticated()){
+    Campsite.findById(req.params.id, function(err, foundCampsite){
+      if(err || !foundCampsite) {
+        req.flash("error", "Campsite not found");
+        res.redirect("/campsites");
+      } else {
+        if(foundCampsite.author.id.equals(req.user._id)){
+          next();
         } else {
-          if(foundCampsite.author.id.equals(req.user._id)){
-            next();
-          } else {
-            req.flash("error", "You don't have permission to do that");
-            res.redirect("back");
-          }
+          req.flash("error", "You don't have permission to do that");
+          res.redirect("/campsites/" + req.params.id);
         }
-      });
-    } else {
-      res.redirect("back");
+      }
+    });
+  } else {
+    req.flash("error", "Please Log in to do that");
+    res.redirect("/login");
+  }
 }
-  }
 
 
-  function checkCommentAuthor(req, res, next){
-    if(req.isAuthenticated()){
-      Comment.findById(req.params.comment_id, function(err, foundComment){
-        if(err){
-          req.flash("error", "Oops, something went wrong. Please try again later.");
-          res.redirect("back");
+function checkCommentAuthor(req, res, next){
+  if(req.isAuthenticated()){
+    Comment.findById(req.params.comment_id, function(err, foundComment){
+      if(err){
+        req.flash("error", "Oops, something went wrong. Please try again later.");
+        res.redirect("back");
+      } else {
+        if(foundComment.author.id.equals(req.user._id)){
+          next();
         } else {
-          if(foundComment.author.id.equals(req.user._id)){
-            next();
-          } else {
-            req.flash("error", "You don't have permission to do that!");
-            res.redirect("/campsites/" + req.params.id);
-          }
+          req.flash("error", "You don't have permission to do that!");
+          res.redirect("/campsites/" + req.params.id);
         }
-      });
-    } else {
-      req.flash("error", "You need to Log in to do that.");
-      res.redirect("/login");
-    }
+      }
+    });
+  } else {
+    req.flash("error", "You need to Log in to do that.");
+    res.redirect("/login");
   }
+}
 
-  module.exports = {
-    isLoggedIn : isLoggedIn,
-    checkCampsiteAuthor : checkCampsiteAuthor,
-    checkCommentAuthor : checkCommentAuthor
+module.exports = {
+  isLoggedIn : isLoggedIn,
+  checkCampsiteAuthor : checkCampsiteAuthor,
+  checkCommentAuthor : checkCommentAuthor
 }
