@@ -55,11 +55,12 @@ Campsite.findById(req.params.id).populate("comments").exec(function(err, foundCa
 
 
 // EDIT CAMPSITE
-router.get("/:id/edit", middleware.checkCampsiteAuthor, function(req, res){
+router.get("/:id/edit", middleware.isLoggedIn, middleware.checkCampsiteAuthor, function(req, res){
   Campsite.findById(req.params.id, function(err, foundCampsite){
     res.render("campsites/edit", {campsite: foundCampsite});
   });
 });
+
 
 // UPDATE CAMPSITE
 router.put("/:id", middleware.checkCampsiteAuthor, function(req, res) {
