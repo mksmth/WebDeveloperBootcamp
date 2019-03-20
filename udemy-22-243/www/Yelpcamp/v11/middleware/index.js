@@ -35,9 +35,9 @@ function checkCampsiteAuthor(req, res, next){
 function checkCommentAuthor(req, res, next){
   if(req.isAuthenticated()){
     Comment.findById(req.params.comment_id, function(err, foundComment){
-      if(err){
+      if(err || !foundComment){
         req.flash("error", "Oops, something went wrong. Please try again later.");
-        res.redirect("back");
+        res.redirect("/campsites");
       } else {
         if(foundComment.author.id.equals(req.user._id)){
           next();

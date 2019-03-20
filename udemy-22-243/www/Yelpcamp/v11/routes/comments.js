@@ -51,7 +51,7 @@ router.get("/new", middleware.isLoggedIn, function(req, res){
 
 // ****** EDIT COMMENT ******
 
-router.get("/:comment_id/edit", middleware.checkCommentAuthor, function(req, res){
+router.get("/:comment_id/edit", middleware.isLoggedIn, middleware.checkCommentAuthor, function(req, res){
   Comment.findById(req.params.comment_id, function(err, foundComment){
     if(err){
       res.redirect("back");
@@ -73,6 +73,7 @@ router.put("/:comment_id", middleware.checkCommentAuthor, function(req, res) {
   });
 });
 
+ 
 // DESTROY A COMMENT
 router.delete("/:comment_id", middleware.checkCommentAuthor, function(req, res) {
   Comment.findByIdAndRemove(req.params.comment_id, function(err){
