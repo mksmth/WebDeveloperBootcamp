@@ -12,7 +12,7 @@
       <div class="thumbnail">
         <img class="img-responsive" src="<%= campsite.image %>">
         <div class="caption-full">
-          <h4 class=pull-right">#15 a night</h4>
+          <h4 class="pull-right">£<%= campsite.price %>/night</h4>
           <h4><a href=""><%= campsite.name %></a><h4>
             <h5>Submitted by: <%= campsite.author.username %></h5>
             <% if(currentUser && campsite.author.id.equals(currentUser._id)){ %>
