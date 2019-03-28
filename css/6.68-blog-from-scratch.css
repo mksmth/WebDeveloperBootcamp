@@ -1,5 +1,6 @@
 body {
-  width: 800px;
+  width: 80%;
+  max-width: 800px;
   margin: 20px auto;
   border: 20px solid #bdc3c7;
   padding: 20px;
